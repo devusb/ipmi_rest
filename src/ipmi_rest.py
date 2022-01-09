@@ -27,6 +27,36 @@ def status():
     connection.session.close()
 
     return jsonify({'power_state': power_state})
+
+@app.route('/power_on')
+def power_on():
+    hostname = request.args.get("hostname")
+    port = request.args.get("port",type=int)
+    username = request.args.get("username")
+    password = request.args.get("password")
+    target = request.args.get("target")
+
+    connection = create_ipmi(hostname,port,username,password,target)
+
+    connection.chassis_control_power_up()
+    connection.session.close()
+
+    return "Powering on"
+
+@app.route('/power_off')
+def power_off():
+    hostname = request.args.get("hostname")
+    port = request.args.get("port",type=int)
+    username = request.args.get("username")
+    password = request.args.get("password")
+    target = request.args.get("target")
+
+    connection = create_ipmi(hostname,port,username,password,target)
+
+    connection.chassis_control_soft_shutdown()
+    connection.session.close()
+
+    return "Powering off"
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port="5001",debug=True)
