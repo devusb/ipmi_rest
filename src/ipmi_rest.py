@@ -41,7 +41,7 @@ def power_on():
     connection.chassis_control_power_up()
     connection.session.close()
 
-    return "Powering on"
+    return jsonify({'response': "power_on"})
 
 @app.route('/power_off')
 def power_off():
@@ -56,7 +56,7 @@ def power_off():
     connection.chassis_control_soft_shutdown()
     connection.session.close()
 
-    return "Powering off"
+    return jsonify({'response': "power_off"})
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port="5001",debug=True)
