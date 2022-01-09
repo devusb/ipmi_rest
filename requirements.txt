@@ -1,0 +1,2 @@
+Flask==2.0.2
+python-ipmi==0.5.1
